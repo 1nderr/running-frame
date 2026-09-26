@@ -13,14 +13,25 @@ A running dashboard I use on my Raspberry Pi frame, backed by Intervals.icu. Thi
 
 ## Setup
 
-### 1. Install Python
+### 1. Install uv
+
+Install [uv](https://docs.astral.sh/uv/getting-started/installation/), which manages Python and the dependencies:
+
+```bash
+curl -LsSf https://astral.sh/uv/install.sh | sh
+```
 
 ### 2. Install Dependencies
 
 ```bash
-pip install -r requirements.txt
+uv sync
+```
+
+If uv picks up your system Python rather than downloading its own, tkinter also needs to be installed:
+
+```bash
 sudo apt update
-sudo apt install python3-tk, python3-pil.imagetk
+sudo apt install python3-tk
 ```
 
 ### 3. Create an Intervals.icu account
@@ -55,7 +66,7 @@ reset it to `0` if you ever break one that was.
 ## Usage
 
 ```bash
-python3 src/main.py
+uv run src/main.py
 ```
 
 ## Troubleshooting
@@ -96,7 +107,7 @@ Right click the task bar and then go to Panel Settings -> Notifications and turn
 Either follow the steps below to make an autoscript or just have a bash script on the desktop that starts the code. Personally, I have both and its convenient with the touchscreen. For the Desktop script, just make sure to save the file with extension `.sh`. It'll then prompt you to execute the script.
 
 ```
-python3 /home/{username}/path/to/your/project/src/main.py &
+/home/{username}/.local/bin/uv run --directory /home/{username}/path/to/your/project src/main.py &
 ```
 
 ## Setting Up Autostart on Raspbian (Labwc)
@@ -116,7 +127,7 @@ touch ~/.config/labwc/autostart
 Add this line to the file (replace `/home/pi/path/to/your/project` with your actual project path):
 
 ```bash
-sleep 60 && python3 /home/{username}/path/to/your/project/src/main.py &
+sleep 60 && /home/{username}/.local/bin/uv run --directory /home/{username}/path/to/your/project src/main.py &
 ```
 
 **NOTE:** The `sleep` is needed otherwise the dashboard does not start in fullscreen and does not connect to wifi

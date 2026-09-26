@@ -1,3 +1,18 @@
+[project]
+name = "running-frame"
+version = "0.1.0"
+description = "A running dashboard for a Raspberry Pi frame, backed by Intervals.icu"
+readme = "README.md"
+authors = [
+    { name = "1nder", email = "20195347+1nderr@users.noreply.github.com" }
+]
+requires-python = ">=3.11"
+dependencies = [
+    "pillow==12.1.0",
+    "requests==2.32.5",
+    "tenacity==9.1.4",
+]
+
 [tool.basedpyright]
 include = ["src"]
 typeCheckingMode = "standard"
